@@ -12,3 +12,8 @@ Enviroment and Requirement
  Documentation [https://www.mkdocs.org/getting-started/]
 
  - mkdocs serve
+
+
+ Run APIs [https://fastapi.tiangolo.com/] + [https://www.uvicorn.org/]
+
+ - uvicorn src.app.service_example.api:app --reload
