@@ -1,16 +1,15 @@
-### Site metadata ###
+site_name: Documentation
+site_description: 'Documentation of the scaffold python service project'
+site_author: 'André Britto'
+site_url: https://britto-andre.github.io/scaffold_python_services_project
 
-site_name: MkDocs Quickstart
-site_description: Starter template for a MkDocs docs site on GH Pages - including CI
-site_url: https://britto-andre.github.io/scaffold_python_services_project/docs/
+docs_dir: docs/
 
-repo_url: https://github.com/britto-andre/scaffold_python_services_project
-# edit_uri: edit/master/docs/docs
-
-### Build settings ###
-
-theme: readthedocs
+# repo_name: 'britto-andre/scaffold_python_services_project'
+repo_url: 'https://github.com/britto-andre/scaffold_python_services_project'
 
 nav:
-  - Home: index.md
-  - About MkDocs: about-mkdocs.md
+    - Home: index.md
+
+theme:
+  name: 'mkdocs'
