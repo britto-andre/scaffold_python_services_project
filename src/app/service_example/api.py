@@ -10,5 +10,5 @@ async def home():
     logger.debug('access home.')
     obj = Example(id=1234, name='Teste Name')
     service = ExampleService()
-    service.create(obj)
+    service.create(obj, 'api', 'queue_test')
     return obj
