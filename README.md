@@ -17,3 +17,7 @@ Enviroment and Requirement
  Run APIs [https://fastapi.tiangolo.com/] + [https://www.uvicorn.org/]
 
  - uvicorn src.app.service_example.api:app --reload
+
+ Start Containers
+
+ - docker-compose -f .\container\rabbitmq\docker-compose.yaml up

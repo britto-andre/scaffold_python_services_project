@@ -1,0 +1,23 @@
+version: '3.9'
+
+# networks:
+#     infra-network:
+#         name: infra_network
+
+volumes:
+    rabbit-data: {}
+
+services:
+    rabbit:
+        image: rabbitmq:3-management
+        container_name: rabbit
+        restart: always
+        volumes:
+            - rabbit-data:/var/lib/rabbitmq
+        ports:
+            - 15672:15672
+            - 5672:5672 
+            - 25676:25676
+        # networks: [infra-network]
+
+# guest:guest@localhost:15672
