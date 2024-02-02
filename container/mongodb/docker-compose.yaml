@@ -1,0 +1,43 @@
+version: '3.9'
+
+# networks:
+#     infra-network:
+#         name: infra_network
+
+volumes:
+    mongo-data: {}
+
+services:
+    mongo:
+        image: mongo
+        container_name: mongo
+        restart: always
+        volumes:
+            - mongo-data:/data/db
+        ports:
+            - 27017:27017
+        # networks: [infra-network]
+        # environment:
+        #     MONGO_INITDB_ROOT_USERNAME: admin
+        #     MONGO_INITDB_ROOT_PASSWORD: pass
+        #     MONGO_INITDB_DATABASE: db
+    
+    mongo-express:
+        image: mongo-express
+        container_name: mongo-express
+        restart: always
+        ports:
+            - 8081:8081
+        # networks: [infra-network]
+        # environment:
+            # ME_CONFIG_OPTIONS_EDITORTHEME: ambiance
+            # ME_CONFIG_BASICAUTH_USERNAME: express
+            # ME_CONFIG_BASICAUTH_PASSWORD: express
+            # ME_CONFIG_MONGODB_ENABLE_ADMIN: "false"
+        #     ME_CONFIG_MONGODB_URL: "mongodb://mongo:27017" 
+        #     ME_CONFIG_MONGODB_AUTH_DATABASE: db
+        #     ME_CONFIG_MONGODB_PORT: 27017
+            # ME_CONFIG_MONGODB_AUTH_USERNAME: admin
+            # ME_CONFIG_MONGODB_AUTH_PASSWORD: pass
+        depends_on:
+            - mongo
