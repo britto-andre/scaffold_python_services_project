@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, status, Body
 from src.app.common.utils.logger import logger
 from src.app.service_example.service.example_service import ExampleService
 from src.app.service_example.entity.example import Example
@@ -31,3 +31,36 @@ async def test():
     connection.close()
 
     return 'Ok'
+
+
+@app.delete("/example/{id}", response_description="Delete a example")
+async def delete_example(id: str):
+    # delete_result = await student_collection.delete_one({"_id": ObjectId(id)})
+
+    # if delete_result.deleted_count == 1:
+    #     return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+    raise HTTPException(status_code=404, detail=f"Example {id} not found")
+
+
+@app.post(
+    "/example/",
+    response_description="Add new example",
+    response_model=Example,
+    status_code=status.HTTP_201_CREATED,
+    response_model_by_alias=False,
+)
+async def create_student(obj: Example = Body(...)):
+    """
+    Insert a new student record.
+
+    A unique `id` will be created and provided in the response.
+    """
+    logger.info(obj)
+    # new_student = await student_collection.insert_one(
+    #     student.model_dump(by_alias=True, exclude=["id"])
+    # )
+    # created_student = await student_collection.find_one(
+    #     {"_id": new_student.inserted_id}
+    # )
+    return obj
