@@ -1,12 +1,12 @@
-from datetime import datetime
-from pydantic.dataclasses import dataclass
+# from datetime import datetime
+# from pydantic.dataclasses import dataclass
+from pydantic import BaseModel
 
-@dataclass
-class Example:
-    id: int
+# @dataclass
+class Example (BaseModel):
     name: str
-    example_date: datetime = None
-    activated: bool = True
+    description: str
+    activated: bool
 
     def __post_init__(self):
-        self.example_date = datetime.now()
+        self.activated = True
