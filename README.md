@@ -6,7 +6,7 @@ Enviroment and Requirement
 
  - python -m venv venv
  - .\venv\Scripts\activate
- - pip install -r requirement.txt
+ - pip install -r requirements.txt
 
 
  Documentation [https://www.mkdocs.org/getting-started/]
