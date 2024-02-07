@@ -1,5 +1,6 @@
-from src.app.common.service.default_service import DefaultService
 from src.app.common.utils.logger import logger
+from src.app.common.service.default_service import DefaultService
+from src.app.common.event.event_publisher import EventPublisher
 from src.app.service_example.entity.example import Example
 from src.app.service_example.repository.example_repository import ExampleRepository
 
@@ -8,10 +9,13 @@ class ExampleService(DefaultService):
     def __init__(self) -> None:
         super().__init__()
         self.repository = ExampleRepository()
+        self.publisher = EventPublisher()
+        
 
     def create(self, obj: Example):
-        self.repository.create(obj)
+        # self.repository.create(obj)
         # persist event
+        self.publisher.publish(obj)
         # publish event
 
     def update_name(self, id: str, name: str):
