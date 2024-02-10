@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+    api-example:
+        image: api-example
+        ports:
+            - "8000:8000"
+        # environment:
+            # SPRING_DATA_MONGODB_URI: "mongodb://mongo:27017/leanisp_core"
+            # API_REST_DEBUG: "FALSE"
+            # KEYCLOAK_AUTH-SERVER-URL: "http://keycloak:8080/auth"
+        build:
+            context: '.'
+            dockerfile: 'Dockerfile'
+            args:
+                SOURCE_FOLDER: 'service_example'
