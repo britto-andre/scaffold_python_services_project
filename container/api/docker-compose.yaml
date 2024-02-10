@@ -3,6 +3,8 @@ version: '3.9'
 services:
     api-example:
         image: api-example
+        container_name: api-example
+        restart: always
         ports:
             - "8000:8000"
         # environment:
@@ -10,7 +12,8 @@ services:
             # API_REST_DEBUG: "FALSE"
             # KEYCLOAK_AUTH-SERVER-URL: "http://keycloak:8080/auth"
         build:
-            context: '.'
+            context: '../../'
             dockerfile: 'Dockerfile'
             args:
                 SOURCE_FOLDER: 'service_example'
+        command: uvicorn src.app.service_example.api:app --host 0.0.0.0 --port 8000
