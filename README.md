@@ -4,20 +4,26 @@ Basic commands to start python projects
 
 Enviroment and Requirement
 
- - python -m venv venv
- - .\venv\Scripts\activate
- - pip install -r requirements.txt
-
+```console
+ python -m venv venv
+ .\venv\Scripts\activate
+ pip install -r requirements.txt
+```
 
  Documentation [https://www.mkdocs.org/getting-started/]
 
- - mkdocs serve
-
+```console
+ mkdocs serve
+```
 
  Run APIs [https://fastapi.tiangolo.com/] + [https://www.uvicorn.org/]
 
- - uvicorn src.app.service_example.api:app --reload
+```console
+uvicorn src.app.service_example.api:app --reload
+```
 
  Start Containers
 
- - docker-compose -f .\container\rabbitmq\docker-compose.yaml up
+```console
+ docker-compose -f .\container\rabbitmq\docker-compose.yaml up
+ ```
