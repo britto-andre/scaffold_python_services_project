@@ -8,13 +8,11 @@ class ExampleService(DefaultService):
     def __init__(self) -> None:
         super().__init__()
         self.repository = ExampleRepository()
-        
-        
 
     def create(self, obj: Example):
         # self.repository.create(obj)
         # persist event
-        self.publisher.publish(obj)
+        self.publisher.publish(123, obj, 'exemple_created')
         # publish event
 
     def update_name(self, id: str, name: str):

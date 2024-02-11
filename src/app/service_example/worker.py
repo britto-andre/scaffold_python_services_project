@@ -16,6 +16,8 @@ channel.queue_declare(queue='example_created') # Declare a queue
 
 # create a function which is called on incoming messages
 def callback(ch, method, properties, body):
+  # print(" [x] Received %r" % json.loads(body))
+
   print(f" Message processing: {ch} - {method} - {properties} - {body}")
 
   time.sleep(5) # delays for 5 seconds

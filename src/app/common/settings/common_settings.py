@@ -3,15 +3,10 @@ from pydantic_settings import BaseSettings
 
 class CommonSettings(BaseSettings):
     environment: str = Field(default='homolog')
-    event_sender: str = Field(default='api_unknow')
+    event_sender: str = Field(default='sender_unknow')
+    event_queue_store: str = Field(default='application_event_store')
+    amqp_uri: str = Field(default='amqp://guest:guest@localhost/%2f')
 
     class Config:
         env_file_encoding = 'utf-8'
-        fields = {
-            'event_sender': {
-                'env': 'event_sender'
-            },
-            'environment': {
-                'env': 'environment'
-            }
-        }
+        # env_file = '.env'

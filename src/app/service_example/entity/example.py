@@ -8,5 +8,5 @@ class Example (BaseModel):
     description: str
     activated: bool
 
-    def __post_init__(self):
-        self.activated = True
+    # def model_post_init(self):
+    #     self.activated = True
