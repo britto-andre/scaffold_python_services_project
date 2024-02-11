@@ -7,10 +7,10 @@ class ExampleRepository:
 
     def create(self, obj: Example):
         with MongoClient() as client:
-            msg_collection = client['example_db']['examples']
-            result = msg_collection.insert_one(obj.dict())
-            ack = result.acknowledged
-            logger.info(f'create repository -> obj {obj} - {ack}')
+            collection = client['example_db']['examples']
+            result = collection.insert_one(obj.model_dump())
+            return result.inserted_id
+
             # return {"insertion": ack}
 
         # new_student = await student_collection.insert_one(

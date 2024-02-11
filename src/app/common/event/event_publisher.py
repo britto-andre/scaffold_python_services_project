@@ -1,5 +1,4 @@
 import pika
-from src.app.common.utils.logger import logger
 from src.app.common.settings.common_settings import CommonSettings
 from src.app.common.event.event import EventBuilder
 
@@ -22,9 +21,9 @@ class EventPublisher:
             # Store Event
             channel_store = connection.channel()
             channel_store.queue_declare(queue=event_queue_store)
-            channel_store.basic_publish(exchange='', routing_key=event_queue_store,  body=event.body_message())
+            channel_store.basic_publish(exchange='', routing_key=event_queue_store,  body=event.model_dump_json())
 
             # Publish Event
             channel = connection.channel()
             channel.queue_declare(queue=queue)
-            channel.basic_publish(exchange='', routing_key=queue,  body=event.body_message())
+            channel.basic_publish(exchange='', routing_key=queue,  body=event.model_dump_json())

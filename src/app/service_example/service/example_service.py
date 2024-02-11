@@ -10,19 +10,11 @@ class ExampleService(DefaultService):
         self.repository = ExampleRepository()
 
     def create(self, obj: Example):
-        # self.repository.create(obj)
-        # persist event
-        self.publisher.publish(123, obj, 'exemple_created')
-        # publish event
+        obj_id = self.repository.create(obj)
+        self.publisher.publish(obj_id, obj, 'exemple_created')
 
     def update_name(self, id: str, name: str):
-        # To-do
-        # persist event
-        # publish event
         logger.info(f'update_name -> id: {id}, name: {name}')
 
     def delete(self, id: str):
-        # To-do
-        # persist event
-        # publish event
         logger.info(f'delete -> id: {id}')
