@@ -1,7 +1,13 @@
 from src.app.common.utils.logger import logger
 from src.app.common.event.event import Event
+from src.app.common.event.event_publisher import EventPublisher
+from src.app.common.settings.common_settings import CommonSettings
 
 class DefaultService:
+
+    def __init__(self):
+        settings = CommonSettings()
+        self.publisher = EventPublisher(settings)
 
     def create(self, payload, sender, queue):
         logger.info(payload)

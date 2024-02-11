@@ -1,4 +1,5 @@
 pydantic
+pydantic-settings
 pika
 pymongo
 fastapi

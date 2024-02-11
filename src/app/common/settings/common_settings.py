@@ -1,9 +1,9 @@
-from pydantic import BaseSettings, Field
+from pydantic import Field
+from pydantic_settings import BaseSettings
 
 class CommonSettings(BaseSettings):
     environment: str = Field(default='homolog')
-    http_port: int
-    event_sender: str
+    event_sender: str = Field(default='api_unknow')
 
     class Config:
         env_file_encoding = 'utf-8'
@@ -13,8 +13,5 @@ class CommonSettings(BaseSettings):
             },
             'environment': {
                 'env': 'environment'
-            },
-            'http_port': {
-                'env': 'http_port'
             }
         }
