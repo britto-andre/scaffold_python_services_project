@@ -7,4 +7,5 @@ class EventRepository:
     def create(self, event: Event):
         with MongoClient() as client:
             event_collection = client['event_db']['events']
-            event_collection.insert_one(event.model_dump())
+            result = event_collection.insert_one(event.model_dump())
+            return result.inserted_id
