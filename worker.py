@@ -1,3 +1,7 @@
-from src.app.service_event_store.worker import worker_run
+import sys
+import importlib
 
-worker_run()
+try:
+    importlib.import_module(f'src.app.{sys.argv[1]}.worker').run()
+except:
+    print('Its failed.')

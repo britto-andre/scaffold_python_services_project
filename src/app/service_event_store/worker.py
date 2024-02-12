@@ -12,6 +12,6 @@ def callback(channel, method, properties, body):
   event_id = repository.create(event)
   logger.info(f'Event {event.uuid} saved with _id {event_id}')
 
-def worker_run():
+def run():
   worker = EventWorker()
   worker.start_consuming(worker.settings.event_queue_store, callback, True)

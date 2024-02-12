@@ -22,6 +22,12 @@ Enviroment and Requirement
 uvicorn src.app.service_example.api:app --reload
 ```
 
+Run workers
+
+```console
+python worker.py service_event_store
+```
+
  Start Containers
 
 ```console
