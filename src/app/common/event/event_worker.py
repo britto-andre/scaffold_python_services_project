@@ -10,6 +10,7 @@ class EventWorker:
         self.rabbit_params.socket_timeout = 5
     
     def start_consuming(self, queue_name, callback, auto_ack):
+        logger.info(f'Start AMQP Connection {self.rabbit_params}.')
 
         with pika.BlockingConnection(self.rabbit_params) as connection:
             channel = connection.channel()
