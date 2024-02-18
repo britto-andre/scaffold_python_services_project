@@ -1,33 +1,13 @@
-import pika, time
+import json
+from src.app.common.utils.logger import logger
+from src.app.common.event.event_worker import EventWorker
+from src.app.common.event.event import Event
 
-def pdf_process_function(msg):
-  print(" Message processing")
-  print(" [x] Received " + str(msg))
+def callback(channel, method, properties, body):
+  event = Event(**json.loads(body))
+  logger.info(f'Event {event.uuid} read.')
+  logger.info(f'Example {event.aggregate_id} -> {event.payload}.')
 
-  time.sleep(5) # delays for 5 seconds
-  print(" PDF processing finished")
-  return
-
-# Access the CLODUAMQP_URL environment variable and parse it (fallback to localhost)
-params = pika.URLParameters('amqp://guest:guest@localhost:5672/%2f')
-connection = pika.BlockingConnection(params)
-channel = connection.channel() # start a channel
-channel.queue_declare(queue='example_created') # Declare a queue
-
-# create a function which is called on incoming messages
-def callback(ch, method, properties, body):
-  # print(" [x] Received %r" % json.loads(body))
-
-  print(f" Message processing: {ch} - {method} - {properties} - {body}")
-
-  time.sleep(5) # delays for 5 seconds
-  print("Message processed!")
-#   pdf_process_function(body)
-
-print('Starting...')
-# set up subscription on the queue
-channel.basic_consume('example_created', callback, auto_ack=True)
-
-# start consuming (blocks)
-channel.start_consuming()
-connection.close()
+def run():
+  worker = EventWorker()
+  worker.start_consuming('example_created', callback, True)
