@@ -1,10 +1,15 @@
-from datetime import datetime
-from pydantic import BaseModel
 import uuid
+
+from datetime import datetime
+from typing import Optional, Annotated
+from pydantic import BaseModel, Field, BeforeValidator
 
 from src.app.common.utils.str_util import camel_to_snake
 
+PyObjectId = Annotated[str, BeforeValidator(str)]
+
 class Event (BaseModel):
+    id: Optional[PyObjectId] = Field(alias='_id', default=None)
     uuid: str
     event_name: str
     aggregate_id: str
@@ -26,5 +31,5 @@ class EventBuilder:
             aggregate_id=str(payload_id),
             aggregate_type=camel_to_snake(payload.__class__.__name__),
             sender=sender,
-            payload=payload.model_dump()
+            payload=payload.model_dump(by_alias=True, exclude=["id"])
         )
