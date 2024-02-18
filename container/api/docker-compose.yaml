@@ -17,3 +17,19 @@ services:
             args:
                 SOURCE_FOLDER: 'service_example'
         command: uvicorn src.app.service_example.api:app --host 0.0.0.0 --port 8000
+
+    api-event:
+        image: api-event
+        container_name: api-event
+        restart: always
+        ports:
+            - "7000:7000"
+        environment:
+            event_sender: "api-event"
+            mongo_uri: "mongodb://host.docker.internal:27017/"
+        build:
+            context: '../../'
+            dockerfile: 'Dockerfile_api'
+            args:
+                SOURCE_FOLDER: 'service_event_store'
+        command: uvicorn src.app.service_event_store.api:app --host 0.0.0.0 --port 7000
