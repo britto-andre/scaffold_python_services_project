@@ -7,13 +7,13 @@ services:
         restart: always
         ports:
             - "8000:8000"
-        # environment:
-            # SPRING_DATA_MONGODB_URI: "mongodb://mongo:27017/leanisp_core"
-            # API_REST_DEBUG: "FALSE"
-            # KEYCLOAK_AUTH-SERVER-URL: "http://keycloak:8080/auth"
+        environment:
+            event_sender: "api-example"
+            mongo_uri: "mongodb://host.docker.internal:27017/"
+            amqp_uri: "amqp://guest:guest@host.docker.internal/"
         build:
             context: '../../'
-            dockerfile: 'Dockerfile'
+            dockerfile: 'Dockerfile_api'
             args:
                 SOURCE_FOLDER: 'service_example'
         command: uvicorn src.app.service_example.api:app --host 0.0.0.0 --port 8000

@@ -1,6 +1,7 @@
 import pika
 from src.app.common.settings.common_settings import CommonSettings
 from src.app.common.event.event import EventBuilder
+from src.app.common.utils.logger import logger
 
 class EventPublisher:
 
@@ -27,3 +28,5 @@ class EventPublisher:
             channel = connection.channel()
             channel.queue_declare(queue=queue)
             channel.basic_publish(exchange='', routing_key=queue,  body=event.model_dump_json())
+
+            logger.info(f'Event published in queue {queue} with event uuid {event.uuid}.')

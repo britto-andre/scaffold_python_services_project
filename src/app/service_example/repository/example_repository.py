@@ -1,14 +1,18 @@
-from pymongo import MongoClient
-
-from src.app.common.utils.logger import logger
 from src.app.service_example.entity.example import Example
+from src.app.common.settings.common_settings import CommonSettings
+from src.app.common.repository.default_repository import DefaultRepository
 
-class ExampleRepository:
+class ExampleRepository(DefaultRepository):
+
+    def __init__(self):
+        super().__init__()
+    
+    def _collection(self, client):
+        return client['example_db']['examples']
 
     def create(self, obj: Example):
-        with MongoClient() as client:
-            collection = client['example_db']['examples']
-            result = collection.insert_one(obj.model_dump())
+        with super().client() as client:
+            result = self._collection(client).insert_one(obj.model_dump())
             return result.inserted_id
 
             # return {"insertion": ack}

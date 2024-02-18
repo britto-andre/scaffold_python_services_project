@@ -11,6 +11,7 @@ class ExampleService(DefaultService):
 
     def create(self, obj: Example):
         obj_id = self.repository.create(obj)
+        logger.info(f'Example Created with _id {obj_id}.')
         self.publisher.publish(obj_id, obj, 'exemple_created')
 
     def update_name(self, id: str, name: str):
