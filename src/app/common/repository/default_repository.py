@@ -1,5 +1,6 @@
+from bson.objectid import ObjectId
+
 from src.app.common.utils.logger import logger
-from src.app.common.event.event import Event
 from src.app.common.settings.common_settings import CommonSettings
 
 from pymongo import MongoClient
@@ -12,3 +13,6 @@ class DefaultRepository:
 
     def client(self) -> MongoClient:
         return MongoClient(host=self.settings.mongo_uri)
+    
+    def obj_id(self, id):
+        return {'_id': ObjectId(id)}
