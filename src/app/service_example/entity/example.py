@@ -1,9 +1,10 @@
 # from datetime import datetime
-# from pydantic.dataclasses import dataclass
-from pydantic import BaseModel
+from typing import Optional
+from pydantic import BaseModel, Field
+from src.app.common.utils.field_util import PyObjectId
 
-# @dataclass
 class Example (BaseModel):
+    id: Optional[PyObjectId] = Field(alias='_id', default=None)
     name: str
     description: str
     activated: bool

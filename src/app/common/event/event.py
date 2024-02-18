@@ -1,12 +1,10 @@
 import uuid
 
 from datetime import datetime
-from typing import Optional, Annotated
-from pydantic import BaseModel, Field, BeforeValidator
-
+from typing import Optional
+from pydantic import BaseModel, Field
+from src.app.common.utils.field_util import PyObjectId
 from src.app.common.utils.str_util import camel_to_snake
-
-PyObjectId = Annotated[str, BeforeValidator(str)]
 
 class Event (BaseModel):
     id: Optional[PyObjectId] = Field(alias='_id', default=None)
