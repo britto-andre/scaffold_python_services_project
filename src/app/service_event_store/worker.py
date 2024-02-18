@@ -2,15 +2,14 @@ import json
 from src.app.common.utils.logger import logger
 from src.app.common.event.event_worker import EventWorker
 from src.app.common.event.event import Event
-from src.app.service_event_store.repository.event_repository import EventRepository
+from src.app.service_event_store.service.event_service import EventService
 
-repository = EventRepository()
+service = EventService()
 
 def callback(channel, method, properties, body):
   event = Event(**json.loads(body))
   logger.info(f'Event {event.uuid} read.')
-  event_id = repository.create(event)
-  logger.info(f'Event {event.uuid} saved with _id {event_id}')
+  service.create(event)
 
 def run():
   worker = EventWorker()
