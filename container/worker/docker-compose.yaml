@@ -1,6 +1,18 @@
 version: '3.9'
 
 services:
+    worker-event:
+        image: worker-event
+        container_name: worker-event
+        restart: always
+        network_mode: host
+        build:
+            context: '../../'
+            dockerfile: 'Dockerfile_worker'
+            args:
+                SOURCE_FOLDER: 'service_event_store'
+        command: python worker.py service_event_store
+    
     worker-example:
         image: worker-example
         container_name: worker-example
@@ -10,5 +22,5 @@ services:
             context: '../../'
             dockerfile: 'Dockerfile_worker'
             args:
-                SOURCE_FOLDER: 'service_event_store'
-        command: python worker.py service_event_store
+                SOURCE_FOLDER: 'service_example'
+        command: python worker.py service_example
