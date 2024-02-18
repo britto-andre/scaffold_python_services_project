@@ -12,7 +12,14 @@ class ExampleService(DefaultService):
     def create(self, obj: Example):
         obj_id = self.repository.create(obj)
         logger.info(f'Example Created with _id {obj_id}.')
-        self.publisher.publish(obj_id, obj, 'exemple_created')
+        self.publisher.publish(obj_id, obj, 'example_created')
+        return obj_id
+
+    def list(self):
+        return self.repository.find_by_example({})
+    
+    def find_one_by_id(self, id):
+        return self.repository.find_one_by_id(id)
 
     def update_name(self, id: str, name: str):
         logger.info(f'update_name -> id: {id}, name: {name}')

@@ -1,5 +1,4 @@
 from src.app.service_example.entity.example import Example
-from src.app.common.settings.common_settings import CommonSettings
 from src.app.common.repository.default_repository import DefaultRepository
 
 class ExampleRepository(DefaultRepository):
@@ -12,21 +11,15 @@ class ExampleRepository(DefaultRepository):
 
     def create(self, obj: Example):
         with super().client() as client:
-            result = self._collection(client).insert_one(obj.model_dump())
+            result = self._collection(client).insert_one(obj.model_dump(by_alias=True, exclude=["id"]))
             return result.inserted_id
+        
+    def find_one_by_id(self, id):
+        with super().client() as client:
+            result = self._collection(client).find_one(super().obj_id(id))
+            return Example(**result)
 
-            # return {"insertion": ack}
-
-        # new_student = await student_collection.insert_one(
-    #     student.model_dump(by_alias=True, exclude=["id"])
-    # )
-    # created_student = await student_collection.find_one(
-    #     {"_id": new_student.inserted_id}
-    # )
-        # To-do
-        # persist object
-        # persist event
-        # publish event
-
-
-    
+    def find_by_example(self, example):
+        with super().client() as client:
+            results = self._collection(client).find(example)
+            return list(map(lambda r: Example(**r), results))    

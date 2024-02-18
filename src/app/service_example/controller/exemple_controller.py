@@ -5,18 +5,16 @@ from src.app.service_example.entity.example import Example
 router = APIRouter()
 service = ExampleService()
 
-
 @router.post('/')
 async def create(obj: Example = Body(...)):
-    service.create(obj)
-    return {'message': 'Example Created'}
+    id = service.create(obj)
+    return {'message': 'Example Created', '_id': str(id)}
 
+@router.get('/{id}')
+async def find_on_by_id(id):
+    return service.find_one_by_id(id)
 
-# @app.delete("/example/{id}", response_description="Delete a example")
-# async def delete_example(id: str):
-#     # delete_result = await student_collection.delete_one({"_id": ObjectId(id)})
-
-#     # if delete_result.deleted_count == 1:
-#     #     return Response(status_code=status.HTTP_204_NO_CONTENT)
-
-#     raise HTTPException(status_code=404, detail=f"Example {id} not found")
+@router.get('/')
+async def list():
+    list = service.list()
+    return {'list': list}
