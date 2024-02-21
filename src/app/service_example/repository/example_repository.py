@@ -17,7 +17,9 @@ class ExampleRepository(DefaultRepository):
     def find_one_by_id(self, id):
         with super().client() as client:
             result = self._collection(client).find_one(super().obj_id(id))
-            return Example(**result)
+            if result:
+                return Example(**result)
+            return {}
 
     def find_by_example(self, example):
         with super().client() as client:

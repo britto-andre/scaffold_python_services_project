@@ -24,5 +24,13 @@ class ExampleService(DefaultService):
     def update_name(self, id: str, name: str):
         logger.info(f'update_name -> id: {id}, name: {name}')
 
+    
+    def request_delete(self, id: str):
+        obj = self.repository.find_one_by_id(id)
+        if obj:
+            self.publisher.publish(id, obj, 'example_delete_requested')
+            return True
+        return False
+
     def delete(self, id: str):
         logger.info(f'delete -> id: {id}')
