@@ -11,7 +11,7 @@ class ExampleRepository(DefaultRepository):
 
     def create(self, obj: Example):
         with super().client() as client:
-            result = self._collection(client).insert_one(obj.model_dump(by_alias=True, exclude=["id"]))
+            result = self._collection(client).insert_one(obj.model_dump(by_alias=True, exclude=['id']))
             return result.inserted_id
         
     def find_one_by_id(self, id):
@@ -25,3 +25,12 @@ class ExampleRepository(DefaultRepository):
         with super().client() as client:
             results = self._collection(client).find(example)
             return list(map(lambda r: Example(**r), results))    
+        
+    def delete(self, obj: Example):
+        obj.excluded = True
+        obj.version += 1
+
+        with super().client() as client:
+            self._collection(client).update_one(
+                super().obj_id(obj.id), {"$set": obj.model_dump(by_alias=True, exclude=['id'])}
+            )

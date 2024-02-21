@@ -33,4 +33,8 @@ class ExampleService(DefaultService):
         return False
 
     def delete(self, id: str):
-        logger.info(f'delete -> id: {id}')
+        obj = self.repository.find_one_by_id(id)
+        if obj:
+            self.repository.delete(obj)
+            return True
+        return False
