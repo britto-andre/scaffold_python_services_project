@@ -3,7 +3,9 @@ version: '3.9'
 services:
     worker-event:
         image: worker-event
-        container_name: worker-event
+        deploy:
+            mode: replicated
+            replicas: 2
         restart: always
         network_mode: host
         build:
@@ -15,7 +17,9 @@ services:
     
     worker-example-created:
         image: worker-example-created
-        container_name: worker-example-created
+        deploy:
+            mode: replicated
+            replicas: 1
         restart: always
         network_mode: host
         build:
@@ -27,7 +31,9 @@ services:
 
     worker-example-delete:
         image: worker-example-delete
-        container_name: worker-example-delete
+        deploy:
+            mode: replicated
+            replicas: 1
         restart: always
         network_mode: host
         build:
