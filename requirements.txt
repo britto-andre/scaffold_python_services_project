@@ -3,4 +3,5 @@ pydantic-settings
 pika
 pymongo
 fastapi
+fastapi-keycloak-middleware
 uvicorn
