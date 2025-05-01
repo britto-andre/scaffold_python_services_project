@@ -2,6 +2,8 @@ from fastapi import APIRouter, HTTPException, Body
 from src.app.service_example.service.example_service import ExampleService
 from src.app.service_example.entity.example import Example
 
+from fastapi_keycloak_middleware import get_user
+
 router = APIRouter()
 service = ExampleService()
 
@@ -16,8 +18,10 @@ async def find_on_by_id(id):
 
 @router.get('/')
 async def list():
+    print(get_user())
+    user = 'usuário'
     list = service.list()
-    return {'list': list}
+    return {'user':user, 'list': list}
 
 @router.delete('/{id}')
 async def delete(id):

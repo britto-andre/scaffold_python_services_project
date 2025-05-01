@@ -17,7 +17,7 @@ class SecurityMiddleware:
 
         self.excluded_routes = [
             # "/",
-            # "/status",
+            "/status",
             # "/docs",
             # "/openapi.json",
             # "/redoc",

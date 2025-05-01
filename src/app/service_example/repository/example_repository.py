@@ -24,7 +24,7 @@ class ExampleRepository(DefaultRepository):
     def find_by_example(self, example):
         with super().client() as client:
             results = self._collection(client).find(example)
-            return list(map(lambda r: Example(**r), results))    
+            return list(map(lambda r: Example(**r), results))
         
     def delete(self, obj: Example):
         obj.excluded = True
